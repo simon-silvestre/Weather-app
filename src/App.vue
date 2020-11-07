@@ -12,7 +12,8 @@
             <p>{{ fiveWeather.list[2].dt_txt | formatDate }}</p>
               <div class="jour__degre">
                 <p>{{ Math.round(fiveWeather.list[2].main.temp) }}°</p>
-                <img src="./assets/rain.png" alt="nuage avec de la pluie">
+                <img :src="'http://openweathermap.org/img/wn/' + fiveWeather.list[2].weather[0].icon + '.png'">
+                <!-- fiveWeather.list[2].weather[0].icon  -->
               </div>
           </div>
 
@@ -20,31 +21,31 @@
             <p>{{ fiveWeather.list[10].dt_txt | formatDate }}</p>
               <div class="jour__degre">
                 <p>{{ Math.round(fiveWeather.list[10].main.temp) }}°</p>
-                <img src="./assets/cloud.png" alt="nuage">
+                <img :src="'http://openweathermap.org/img/wn/' + fiveWeather.list[10].weather[0].icon + '.png'">
             </div>
           </div>
 
           <div class="meteo__future__jour">
             <p>{{ fiveWeather.list[18].dt_txt | formatDate }}</p>
               <div class="jour__degre">
-                <p>{{ Math.round(fiveWeather.list[10].main.temp) }}°</p>
-                <img src="./assets/cloudy.png" alt="nuage ensoleillé">
+                <p>{{ Math.round(fiveWeather.list[18].main.temp) }}°</p>
+                <img :src="'http://openweathermap.org/img/wn/' + fiveWeather.list[18].weather[0].icon + '.png'">
             </div>
           </div> 
 
           <div class="meteo__future__jour">
             <p>{{ fiveWeather.list[26].dt_txt | formatDate }}</p>
               <div class="jour__degre">
-                <p>{{ Math.round(fiveWeather.list[10].main.temp) }}°</p>
-                <img src="./assets/wind.png" alt="nuage ensoleillé">
+                <p>{{ Math.round(fiveWeather.list[26].main.temp) }}°</p>
+                <img :src="'http://openweathermap.org/img/wn/' + fiveWeather.list[26].weather[0].icon + '.png'">
             </div>
           </div>
 
           <div class="meteo__future__jour">
             <p>{{ fiveWeather.list[34].dt_txt | formatDate }}</p>
             <div class="jour__degre">
-              <p>{{ Math.round(fiveWeather.list[10].main.temp) }}°</p>
-              <img src="./assets/wind.png" alt="nuage ensoleillé">
+              <p>{{ Math.round(fiveWeather.list[34].main.temp) }}°</p>
+              <img :src="'http://openweathermap.org/img/wn/' + fiveWeather.list[34].weather[0].icon + '.png'">
             </div>
           </div>
 
@@ -177,7 +178,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     width: 55%;
-    margin-top: 30px;
+    margin-top: 10px;
 
     color: #868f9e;
     font-weight: 500;
@@ -189,7 +190,7 @@ export default {
     font-weight: 900;
   }
   .jour__degre img {
-    width: 30px;
+    width: 45px;
     margin-left: 15px;
   }
 
@@ -219,4 +220,31 @@ export default {
     color: #868f9e;
     font-weight: 600;
   }
+
+  @media screen and (max-width: 500px) {
+    .smartphone-container {
+      width: 100%;
+      height: 100vh;
+    }
+    .smartphone-container__meteo {
+      height: 85%;
+    }
+    .smartphone-container__location {
+      height: 15%;
+    }
+    .meteo__actuelle {
+      height: 40%;
+    }
+    .meteo__future {
+      height: 60%;
+    }
+  }
+   @media screen and (max-width: 320px) {
+    .meteo__future__jour {
+      font-size: 14px;
+    }
+    .jour__degre img {
+      width: 40px;
+    }
+   }
 </style>

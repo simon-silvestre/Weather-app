@@ -3,44 +3,48 @@
     <div class="smartphone-container">
       <div class="smartphone-container__meteo">
         <div class="meteo__actuelle">
-          <p v-if="location != ''">{{ location }}</p>
-          <p v-else>Paris, France</p>
-          <p id="meteo__degrés">23°</p>
-          <p>cloudy</p>
+          <p>{{ weather.name }}, {{ weather.sys.country }}</p>
+          <p id="meteo__degrés">{{ Math.round(weather.main.temp) }}°</p>
+          <p>{{ weather.weather[0].main }}</p>
         </div>
         <div class="meteo__future">
           <div class="meteo__future__jour">
-            <p>Lundi</p>
+            <p>{{ fiveWeather.list[2].dt_txt | formatDate }}</p>
               <div class="jour__degre">
-                <p>38°</p>
+                <p>{{ Math.round(fiveWeather.list[2].main.temp) }}°</p>
+                <img src="./assets/rain.png" alt="nuage avec de la pluie">
               </div>
           </div>
 
           <div class="meteo__future__jour">
-            <p>Mardi</p>
+            <p>{{ fiveWeather.list[10].dt_txt | formatDate }}</p>
               <div class="jour__degre">
-                <p>38°</p>
+                <p>{{ Math.round(fiveWeather.list[10].main.temp) }}°</p>
+                <img src="./assets/cloud.png" alt="nuage">
             </div>
           </div>
 
           <div class="meteo__future__jour">
-            <p>Mercredi</p>
+            <p>{{ fiveWeather.list[18].dt_txt | formatDate }}</p>
               <div class="jour__degre">
-                <p>38°</p>
+                <p>{{ Math.round(fiveWeather.list[10].main.temp) }}°</p>
+                <img src="./assets/cloudy.png" alt="nuage ensoleillé">
             </div>
           </div> 
 
           <div class="meteo__future__jour">
-            <p>Jeudi</p>
+            <p>{{ fiveWeather.list[26].dt_txt | formatDate }}</p>
               <div class="jour__degre">
-                <p>38°</p>
+                <p>{{ Math.round(fiveWeather.list[10].main.temp) }}°</p>
+                <img src="./assets/wind.png" alt="nuage ensoleillé">
             </div>
           </div>
 
           <div class="meteo__future__jour">
-            <p>Vendredi</p>
+            <p>{{ fiveWeather.list[34].dt_txt | formatDate }}</p>
             <div class="jour__degre">
-              <p>38°</p>
+              <p>{{ Math.round(fiveWeather.list[10].main.temp) }}°</p>
+              <img src="./assets/wind.png" alt="nuage ensoleillé">
             </div>
           </div>
 
@@ -48,7 +52,7 @@
       </div>
 
       <div class="smartphone-container__location">
-        <form @submit.prevent="changeLocation">
+        <form @submit.prevent="getWeather">
           <input type="text" v-model="location" placeholder="changer de ville">
         </form>
      </div>
@@ -57,20 +61,43 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import moment from 'moment'
+  
+Vue.config.productionTip = false
+Vue.filter('formatDate', function(value) {
+  if (value) {
+    return moment(String(value)).format('dddd')
+  }
+});
 
 export default {
   name: 'App',
   data() {
       return {
-          location: '',
-
+          location: 'Paris',
+          api_key: '772f1145fd85515774a60b7277b22c94',
+          api_url: 'https://api.openweathermap.org/data/2.5/',
+          weather: {},
+          fiveWeather: {},
       }
   },
+  created() {
+    this.getWeather()
+  },
   methods: {
-      changeLocation() {
-          console.log(this.location)
-          this.location = "";
-      }
+    getWeather() {
+      fetch(`${this.api_url}weather?q=${this.location}&units=metric&appid=${this.api_key}`)
+        .then((response) => response.json())
+          .then(data => this.weather = data);
+          this.getFiveDaysWeather()
+          this.location = ""
+    },
+    getFiveDaysWeather() {
+      fetch(`${this.api_url}forecast?q=${this.location}&units=metric&appid=${this.api_key}`)
+        .then((response) => response.json())
+          .then(data => this.fiveWeather = data);
+    },
   }
 }
 </script>
@@ -148,7 +175,8 @@ export default {
   .meteo__future__jour {
     display: flex;
     justify-content: space-between;
-    width: 50%;
+    align-items: center;
+    width: 55%;
     margin-top: 30px;
 
     color: #868f9e;
@@ -156,7 +184,13 @@ export default {
     font-size: 17px;
   }
   .jour__degre  {
+    display: flex;
+    align-items: center;
     font-weight: 900;
+  }
+  .jour__degre img {
+    width: 30px;
+    margin-left: 15px;
   }
 
   .smartphone-container__location {

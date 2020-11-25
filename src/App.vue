@@ -238,6 +238,9 @@ export default {
     .meteo__future {
       height: 60%;
     }
+    .smartphone-container__location input {
+      font-size: 16px
+    }
   }
    @media screen and (max-width: 320px) {
     .meteo__future__jour {

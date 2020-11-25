@@ -5,6 +5,7 @@
   </a>
 </p>
 
+<<<<<<< HEAD
 > Ce projet d’application météo a été créé pour me familiariser avec Vuejs, il consiste à donner la météo actuelle de la ville choisie par l’utilisateur et la météo des 5 jours à venir grâce à l’api de OpenWeather
 
 ### ✨ [Demo](http://weather.simon-projets.com)
@@ -27,3 +28,7 @@ npm install
 
 Give a ⭐️ if like this project!
 
+=======
+Petit projet pour me familiariser avec vue js. <br>
+api utilisée: https://openweathermap.org/
+>>>>>>> d5e9d47aadac7e754bda349c22663d4096f6585e

@@ -7,7 +7,7 @@
 
 > Ce projet d’application météo a été créé pour me familiariser avec Vuejs, il consiste à donner la météo actuelle de la ville choisie par l’utilisateur et la météo des 5 jours à venir grâce à l’api de OpenWeather
 
-### ✨ [Demo](http://weather.simon-projets.com)
+### ✨ [Essayez le site par vous-même](http://weather.simon-projets.com)
 
 ## Install
 
